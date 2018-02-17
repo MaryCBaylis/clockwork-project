@@ -12,10 +12,24 @@ function UserAction() {
 
 }
 </script>
+<div class="row">
+    <div class="spaceholder col-lg-2 col-md-1">
+    </div>
+    <div class="jumbotron col-lg-8 col-md-10">
+        <h1>AWH Clockwork Project</h1>
+        <p class="lead">V @ViewData["Version"] on @ViewData["Runtime"]!</p>
+        <canvas id="canvas" width="400" height="400">
+        </canvas>
+        <button class="btn btn-lg col-md-8" type="submit" onclick="UserAction()">Get the Time</button>
+    </div>
+    <div class="spaceholder col-lg-2 col-md-1">
+    </div>
+</div>
 
-<h2>AWH Clockwork Project @ViewData["Version"] on @ViewData["Runtime"]!</h2>
-
-
-<button type="submit" onclick="UserAction()">Get the time</button>
 
 <p id="output"></p>
+
+@section head {
+    <link href="Content/index.css" rel="stylesheet">
+    <script src="Scripts/index.js"></script>
+}

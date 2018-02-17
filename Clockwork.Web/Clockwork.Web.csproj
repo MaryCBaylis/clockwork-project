@@ -110,6 +110,8 @@
     <Content Include="Content\bootstrap-reboot.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\index.css" />
+    <Content Include="Scripts\index.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\jquery-3.0.0.slim.min.map" />

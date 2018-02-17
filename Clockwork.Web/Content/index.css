@@ -1,0 +1,42 @@
+﻿body {
+    font-family: "Lucida Console;
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+.row {
+    margin: 20px;
+}
+.jumbotron {
+    text-align: center;
+    color: ##0e0b16;
+    border-radius: 10
+}
+
+.btn {
+    background-color: #4717f6;
+    color: white;
+    border-radius: 10;
+    box-shadow: 0 1px #666;
+    font-family: Arial Black;
+}
+
+.big-btn {
+    width: 60%;
+    padding: 10px;
+    font-size: 2rem;
+}
+
+.btn:hover {
+    background-color: #3606e5;
+}
+
+.btn:active {
+    background-color: #3606e5;
+    box-shadow: 0 2px #666;
+    transform: translateY(2px);
+}
+
+
