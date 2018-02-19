@@ -4,10 +4,11 @@ using Clockwork.API.Models;
 
 namespace Clockwork.API.Controllers
 {
-    [Route("api/[controller]")]
+
     public class CurrentTimeController : Controller
     {
         // GET api/currenttime
+        [Route("api/[controller]")]
         [HttpGet]
         public IActionResult Get()
         {
@@ -37,5 +38,16 @@ namespace Clockwork.API.Controllers
 
             return Ok(returnVal);
         }
+
+        //GET api/currenttime/requests
+        [Route("api/[controller]/requests")]
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var db = new ClockworkContext();
+ 
+            return Ok(db.CurrentTimeQueries);
+        }
+
     }
 }
