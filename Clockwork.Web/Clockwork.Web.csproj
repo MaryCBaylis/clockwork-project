@@ -112,6 +112,7 @@
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\index.css" />
     <Content Include="Scripts\analogClock.js" />
+    <Content Include="Views\Home\_PreviousRequestsTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\jquery-3.0.0.slim.min.map" />

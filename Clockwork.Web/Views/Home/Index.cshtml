@@ -8,15 +8,36 @@
     })
         
     function UserAction() {
+        requestCurrentTime();
+        requestPreviousRequestData();
+    }
+
+    function requestCurrentTime(){
+        urlString = "http://127.0.0.1:5000/api/currenttime";
+        successFunction = function(response) {
+                document.getElementById("output").innerHTML = response;
+                var time = parseTimeFromResponse(response);
+                AnalogClock.draw(new Date(time));
+        }
+        sendGetRequest(urlString, successFunction);
+    }
+
+    function requestPreviousRequestData() {
+        urlString = "http://127.0.0.1:5000/api/currentTime/requests";
+        successFunction = function(response) {
+            console.log(response);
+        }
+        sendGetRequest(urlString, successFunction);
+    }
+
+    function sendGetRequest(url, callback) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("output").innerHTML = this.responseText;
-                var time = parseTimeFromResponse(this.responseText);
-                AnalogClock.draw(new Date(time));
+                callback(this.responseText);
             }
         };
-        xhttp.open("GET", "http://127.0.0.1:5000/api/currenttime", true);
+        xhttp.open("GET", url, true);
         xhttp.setRequestHeader("Content-type", "application/json");
         xhttp.send();
     }
@@ -31,7 +52,7 @@
 <div class="row">
     <div class="spaceholder col-lg-2 col-md-1">
     </div>
-    <div class="header row col-lg-7 col-md-9">
+    <div class="header row col-lg-8 col-md-10">
         <h1>AWH 
             <span class="secondary-header">Clockwork Project</span>
         </h1>
@@ -52,9 +73,18 @@
     <div class="spaceholder col-lg-2 col-md-1">
     </div>
 </div>
+<div class="row">
+    <div class="spaceholder col-lg-2 col-md-1">
+    </div>
+    <div class="col-lg-8 col-md-10">
+    @{
+        Html.RenderPartial("_PreviousRequestsTable");
+    }
+    </div>
+    <div class="spaceholder col-lg-2 col-md-1">
+    </div>
+</div>
 
-
-<p id="output"></p>
 
 @section head {
     <link href="Content/index.css" rel="stylesheet">
