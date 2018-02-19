@@ -1,6 +1,7 @@
 ﻿<script>
 
     $("document").ready(function(){
+        $("#about").tooltip({"trigger": "click"});
         AnalogClock.init();
         var time = new Date();
         AnalogClock.draw(time);
@@ -34,7 +35,8 @@
         <h1>AWH 
             <span class="secondary-header">Clockwork Project</span>
         </h1>
-        <a href="#"><i class="fas fa-question-circle tertiary-header"></i></a>    
+        <span id="about" data-toggle="tooltip" data-placement="bottom" title="Version @ViewData["Version"] on @ViewData["Runtime"]!">
+  <i class="fas fa-question-circle tertiary-header"></i></span> 
     </div>
     <div class="spaceholder col-lg-2 col-md-1">
     </div>

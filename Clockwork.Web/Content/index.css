@@ -56,3 +56,7 @@ h1 {
     font-size: 3rem
 }
 
+#about {
+    cursor: pointer
+}
+
