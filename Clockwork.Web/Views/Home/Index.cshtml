@@ -1,17 +1,31 @@
 ﻿<script>
 
-function UserAction() {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("output").innerHTML = this.responseText;
-        }
-    };
-    xhttp.open("GET", "http://127.0.0.1:5000/api/currenttime", true);
-    xhttp.setRequestHeader("Content-type", "application/json");
-    xhttp.send();
+    $("document").ready(function(){
+        AnalogClock.init();
+        var time = new Date();
+        AnalogClock.draw(time);
+    })
+        
+    function UserAction() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("output").innerHTML = this.responseText;
+                var time = parseTimeFromResponse(this.responseText);
+                AnalogClock.draw(new Date(time));
+            }
+        };
+        xhttp.open("GET", "http://127.0.0.1:5000/api/currenttime", true);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.send();
+    }
 
-}
+    function parseTimeFromResponse(response) {
+        var time = JSON.parse(response).time;
+        var date = new Date(Date.parse(time, "yyyy-MM-dd HH:mm z"));
+        return date;
+    }
+    
 </script>
 <div class="row">
     <div class="spaceholder col-lg-2 col-md-1">
