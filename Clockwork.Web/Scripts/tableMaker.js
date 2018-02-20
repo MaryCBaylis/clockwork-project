@@ -42,7 +42,8 @@
             result += `        <tr scope="row" class="hover-color">`;
             var item = dataArray[i];
             Object.keys(item).forEach(function(key){
-                result += `            <td>${item[key]}</td>`;
+                var data = getFormattedItem(item, key);
+                result += `            <td>${data}</td>`;
             })
             result += `        </tr>`;
         }
@@ -52,6 +53,28 @@
 
     function getBottomBorder() {
         var result = `<div class="bottom-border">Displaying all Records</div>`;
+        return result;
+    }
+
+    function getFormattedItem(item, key) {
+        var result;
+        if (key === "time" || key === "utcTime") {
+            result = new Date(Date.parse(item[key], "yyyy-MM-dd HH:mm z"));
+            result = getDisplayDate(result);
+        } else {
+            result = item[key];
+        }
+        return result;
+    }
+
+    function getDisplayDate(date) {
+        var seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+        var result = 
+            date.toDateString() + " " +
+            date.getHours() + ":" +
+            date.getMinutes() + ":" + 
+            seconds;
+
         return result;
     }
 
