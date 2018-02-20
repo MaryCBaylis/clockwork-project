@@ -42,7 +42,7 @@ namespace Clockwork.API.Controllers
         //GET api/currenttime/requests
         [Route("api/[controller]/requests")]
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult All()
         {
             var db = new ClockworkContext();
  

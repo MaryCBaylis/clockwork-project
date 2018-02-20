@@ -15,7 +15,6 @@
     function requestCurrentTime(){
         urlString = "http://127.0.0.1:5000/api/currenttime";
         successFunction = function(response) {
-                document.getElementById("output").innerHTML = response;
                 var time = parseTimeFromResponse(response);
                 AnalogClock.draw(new Date(time));
         }
@@ -25,7 +24,7 @@
     function requestPreviousRequestData() {
         urlString = "http://127.0.0.1:5000/api/currentTime/requests";
         successFunction = function(response) {
-            console.log(response);
+            $("#output").html(response);
         }
         sendGetRequest(urlString, successFunction);
     }
