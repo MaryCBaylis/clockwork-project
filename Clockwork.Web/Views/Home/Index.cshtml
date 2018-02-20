@@ -24,7 +24,14 @@
     function requestPreviousRequestData() {
         urlString = "http://127.0.0.1:5000/api/currentTime/requests";
         successFunction = function(response) {
-            $("#output").html(response);
+            var headers = {
+                "currentTimeQueryId": "Id",
+                "time": "Time",
+                "clientIp": "Client IP",
+                "utcTime": "UTC Time"
+            }
+            var table = TableMaker.make(JSON.parse(response).reverse(), headers);
+            $("#output").html(table);
         }
         sendGetRequest(urlString, successFunction);
     }
@@ -75,7 +82,7 @@
 <div class="row">
     <div class="spaceholder col-lg-2 col-md-1">
     </div>
-    <div class="col-lg-8 col-md-10">
+    <div class="col-lg-8 col-md-10 no-padding">
     @{
         Html.RenderPartial("_PreviousRequestsTable");
     }
@@ -88,5 +95,5 @@
 @section head {
     <link href="Content/index.css" rel="stylesheet">
     <script src="Scripts/analogClock.js"></script>
-    <script src="Scripts/index.js"></script>
+    <script src="Scripts/tableMaker.js"></script>
 }

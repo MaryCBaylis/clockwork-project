@@ -60,3 +60,28 @@ h1 {
     cursor: pointer
 }
 
+.no-padding {
+    padding: 0px;
+}
+
+.top-border {
+    background-color: #4717f6;
+    color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    text-align: center;
+}
+
+.bottom-border {
+    background-color: #4717f6;
+    color: white;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    text-align: center
+
+}
+
+.table-hover tbody tr:hover td {
+    background-color: #FFEB1A;
+}
+
