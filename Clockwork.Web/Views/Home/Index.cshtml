@@ -2,12 +2,28 @@
 
     $("document").ready(function(){
         $("#about").tooltip({"trigger": "click"});
+    
+        setClock();
+        setTable();
+    })
+
+    function setClock() {
         AnalogClock.init();
         var time = new Date();
         AnalogClock.draw(time);
-    })
+    }
+
+    function setTable() {
+        requestPreviousRequestData();
+        $("body").on("click", ".page-request", function(){
+            var requestedPage = $(this).data("pageRequest");
+            var table = TableMaker.make(requestedPage);
+            $("#output").html(table);
+        })
+    }
         
     function UserAction() {
+    $("#getTimeButton").button("loading");
         requestCurrentTime();
         requestPreviousRequestData();
     }
@@ -30,7 +46,8 @@
                 "clientIp": "Client IP",
                 "utcTime": "UTC Time"
             }
-            var table = TableMaker.make(JSON.parse(response).reverse(), headers);
+            TableMaker.init(JSON.parse(response).reverse(), headers, 20);
+            var table = TableMaker.make();
             $("#output").html(table);
         }
         sendGetRequest(urlString, successFunction);
@@ -62,7 +79,8 @@
         <h1>AWH 
             <span class="secondary-header">Clockwork Project</span>
         </h1>
-        <span id="about" data-toggle="tooltip" data-placement="bottom" title="Version @ViewData["Version"] on @ViewData["Runtime"]!">
+        <span id="about" data-toggle="tooltip" data-placement="bottom" 
+            title="Version @ViewData["Version"] on @ViewData["Runtime"]!">
   <i class="fas fa-question-circle tertiary-header"></i></span> 
     </div>
     <div class="spaceholder col-lg-2 col-md-1">
@@ -74,7 +92,8 @@
     <div class="jumbotron col-lg-8 col-md-10">
         <canvas id="canvas" width="400" height="400">
         </canvas>
-        <button class="btn btn-lg col-md-8" type="submit" onclick="UserAction()">Get the Time</button>
+        <button class="btn btn-lg col-md-8" id="getTimeButton" type="submit" 
+        onclick="UserAction()">Get the Time</button>
     </div>
     <div class="spaceholder col-lg-2 col-md-1">
     </div>
