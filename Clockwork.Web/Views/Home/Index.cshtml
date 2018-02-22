@@ -28,7 +28,6 @@
     function UserAction() {
         clearInterval(runningInterval);
         requestCurrentTime();
-        requestPreviousRequestData();
     }
 
     function requestCurrentTime(){
@@ -37,6 +36,7 @@
                 var time = parseTimeFromResponse(response);
                 AnalogClock.draw(new Date(time));
                 $("#time-output").html(time);
+                requestPreviousRequestData();
         }
         sendGetRequest(urlString, successFunction);
     }
@@ -49,7 +49,7 @@
                 "time": "Time",
                 "clientIp": "Client IP",
                 "utcTime": "UTC Time"
-            }
+            };
             TableMaker.init(JSON.parse(response).reverse(), headers, 20);
             var table = TableMaker.make();
             $("#output").html(table);
@@ -76,7 +76,7 @@
     }
     
 </script>
-<div class="row">
+<div class="row top-row">
     <div class="spaceholder col-lg-2 col-md-1">
     </div>
     <div class="header row col-lg-8 col-md-10">
