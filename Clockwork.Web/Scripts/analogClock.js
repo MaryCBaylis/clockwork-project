@@ -18,9 +18,7 @@
 
         drawFace(ctx, radius);
         drawNumbers(ctx, radius);
-        if (time !== undefined){
-            drawTime(ctx, radius, time);
-        }
+        drawTime(ctx, radius, time);
     }
 
     function drawFace(ctx, radius) {

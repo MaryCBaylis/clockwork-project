@@ -1,8 +1,10 @@
 ﻿<script>
+    var runningInterval;
 
     $("document").ready(function(){
         $("#about").tooltip({"trigger": "click"});
-    
+
+        runningInterval = setInterval(setClock, 1000);
         setClock();
         setTable();
     })
@@ -11,6 +13,7 @@
         AnalogClock.init();
         var time = new Date();
         AnalogClock.draw(time);
+        $("#time-output").html(time);
     }
 
     function setTable() {
@@ -23,7 +26,7 @@
     }
         
     function UserAction() {
-    $("#getTimeButton").button("loading");
+        clearInterval(runningInterval);
         requestCurrentTime();
         requestPreviousRequestData();
     }
@@ -33,6 +36,7 @@
         successFunction = function(response) {
                 var time = parseTimeFromResponse(response);
                 AnalogClock.draw(new Date(time));
+                $("#time-output").html(time);
         }
         sendGetRequest(urlString, successFunction);
     }
@@ -86,14 +90,19 @@
     <div class="spaceholder col-lg-2 col-md-1">
     </div>
 </div>
+
 <div class="row">
     <div class="spaceholder col-lg-2 col-md-1">
     </div>
-    <div class="jumbotron col-lg-8 col-md-10">
-        <canvas id="canvas" width="400" height="400">
-        </canvas>
-        <button class="btn btn-lg col-md-8" id="getTimeButton" type="submit" 
-        onclick="UserAction()">Get the Time</button>
+    <div class="row jumbotron col-lg-8 col-md-10">
+        <span id="time-output" class="col-md-12"></span>
+        <span class="col-md-12">
+            <canvas id="canvas" width="400" height="400">
+            </canvas>
+        </span>
+        <span id="time-output" class="col-md-12"></span>
+        <span class="col-md-12"><button class="btn btn-lg col-md-8" id="getTimeButton" type="submit" 
+        onclick="UserAction()">Get the Time</button></span>
     </div>
     <div class="spaceholder col-lg-2 col-md-1">
     </div>
