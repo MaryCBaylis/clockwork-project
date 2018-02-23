@@ -3,10 +3,10 @@
 
     $("document").ready(function(){
         $("#about").tooltip({"trigger": "click"});
-
         runningInterval = setInterval(setClock, 1000);
         setClock();
         setTable();
+        getTimezones();
     })
 
     function setClock() {
@@ -57,6 +57,16 @@
         sendGetRequest(urlString, successFunction);
     }
 
+    function getTimezones() {
+        console.log("start!");
+        urlString = urlString = "http://127.0.0.1:5000/api/currentTime/timezones";
+        successFunction = function(response) {
+            console.log(response);
+        }
+
+        sendGetRequest(urlString, successFunction);
+    }
+
     function sendGetRequest(url, callback) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
@@ -76,7 +86,7 @@
     }
     
 </script>
-<div class="row top-row">
+<div class="row">
     <div class="spaceholder col-lg-2 col-md-1">
     </div>
     <div class="header row col-lg-8 col-md-10">
@@ -91,7 +101,23 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row timezone-row">
+    <div class="spaceholder col-lg-2 col-md-1">
+    </div>
+    <div class="col-lg-8 col-md-10 align-bottom text-right timezone">
+        <div class="timezone-label">Current Timezone: <select>
+          <option value="EST">Timezone A</option>
+          <option value="CST">Timezone B</option>
+          <option value="opel">Timezone C</option>
+          <option value="audi">Timezone D</option>
+        </select></div>
+    </div>
+
+    <div class="spaceholder col-lg-2 col-md-1">
+    </div>
+</div>
+
+<div class="row time-row">
     <div class="spaceholder col-lg-2 col-md-1">
     </div>
     <div class="row jumbotron col-lg-8 col-md-10">

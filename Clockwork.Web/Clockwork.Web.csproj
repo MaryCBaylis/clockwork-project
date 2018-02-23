@@ -114,6 +114,7 @@
     <Content Include="Scripts\analogClock.js" />
     <Content Include="Views\Home\_PreviousRequestsTable.cshtml" />
     <Content Include="Scripts\tableMaker.js" />
+    <Content Include="Scripts\bootstrap-select.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\jquery-3.0.0.slim.min.map" />
