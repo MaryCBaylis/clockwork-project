@@ -10,10 +10,11 @@
     })
 
     function setClock() {
+        var timeZone = $("#timezone-select").val();
         AnalogClock.init();
-        var time = new Date();
+        var time = moment.tz(timeZone)
         AnalogClock.draw(time);
-        $("#time-output").html(time);
+        $("#time-output").html(time.format("MMM DD, YYYY hh:mm:ss A"));
     }
 
     function setTable() {
@@ -34,8 +35,8 @@
         urlString = "http://127.0.0.1:5000/api/currenttime";
         successFunction = function(response) {
                 var time = parseTimeFromResponse(response);
-                AnalogClock.draw(new Date(time));
-                $("#time-output").html(time);
+                AnalogClock.draw(time);
+                $("#time-output").html(time.format("MMM DD, YYYY hh:mm:ss A"));
                 requestPreviousRequestData();
         }
         sendGetRequest(urlString, successFunction);
@@ -58,7 +59,7 @@
     }
 
     function getTimeZones() {
-        urlString = urlString = "http://127.0.0.1:5000/api/currentTime/timezones";
+        urlString = "http://127.0.0.1:5000/api/currentTime/timezones";
         successFunction = function(response) {
             var dropDown = TZDropDownMaker.make(JSON.parse(response));
             $("#time-zone-drop-down").html(dropDown);
@@ -81,7 +82,7 @@
 
     function parseTimeFromResponse(response) {
         var time = JSON.parse(response).time;
-        var date = new Date(Date.parse(time, "yyyy-MM-dd HH:mm z"));
+        var date = moment.tz(time, "America/New_York");
         return date;
     }
     
@@ -106,7 +107,7 @@
     </div>
     <div class="col-lg-8 col-md-10 align-bottom text-right timezone">
         <div class="timezone-label">
-            Current Timezone: <span id="time-zone-drop-down"></span>
+            Timezone: <span id="time-zone-drop-down"></span>
         </div>
     </div>
 
@@ -149,4 +150,6 @@
     <script src="Scripts/analogClock.js"></script>
     <script src="Scripts/timeZoneDropDownMaker.js"></script>
     <script src="Scripts/tableMaker.js"></script>
+    <script src="Scripts/moment.min.js"></script>
+    <script src="Scripts/moment-timezone-with-data.js"></script>
 }

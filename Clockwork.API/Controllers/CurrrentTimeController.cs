@@ -56,7 +56,7 @@ namespace Clockwork.API.Controllers
         //GET api/currenttime/timezones
         [Route("api/[controller]/timezones")]
         [HttpGet]
-        public IActionResult getTimezones()
+        public IActionResult GetTimezones()
         {
             Dictionary<string, Dictionary<string, string>> regions = new Dictionary<string, Dictionary<string, string>>();
 
@@ -77,16 +77,39 @@ namespace Clockwork.API.Controllers
                 }
 
             }
-            return Ok(regions);
+
+            var getnamesandoffsets = new ArrayList();
+            foreach (TimeZoneInfo z in TimeZoneInfo.GetSystemTimeZones()) {
+                getnamesandoffsets.Add(new { 
+                    name = z.Id,
+                    offset = z.BaseUtcOffset
+                });
+            }
+
+            var result = new
+            {
+                regions = regions,
+                serverInfo = new {
+                    id = TimeZoneInfo.Local.Id,
+                    time = DateTime.Now
+                },
+                extra = getnamesandoffsets
+            };
+            return Ok(result);
         }
 
-        public string[] RemoveDuplicates(string[] s)
+        //GET api/currenttime/servertimezone
+        [Route("api/[controller]/servertimezone")]
+        [HttpGet]
+        public IActionResult GetServerTimeZone()
         {
-            HashSet<string> set = new HashSet<string>(s);
-            string[] result = new string[set.Count];
-            set.CopyTo(result);
-            return result;
-        }
+            var result = new
+            {
+                id = TimeZoneInfo.Local.Id,
+                time = DateTime.Now
+            };
 
+            return Ok(result);
+        }
     }
 }

@@ -9,7 +9,7 @@
     }
 
     /**
-    * @param {Date} time
+    * @param {Moment} time
     */
     function draw(time) {
         ctx.resetTransform();
@@ -56,9 +56,9 @@
     }
 
     function drawTime(ctx, radius, time){
-        var hour = time.getHours();
-        var minute = time.getMinutes();
-        var second = time.getSeconds();
+        var hour = time.hours();
+        var minute = time.minutes();
+        var second = time.seconds();
         //hour
         hour=hour%12;
         hour=(hour*Math.PI/6)+
