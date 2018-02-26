@@ -27,7 +27,8 @@ namespace Clockwork.API.Controllers
             {
                 UTCTime = utcTime,
                 ClientIp = ip,
-                Time = userTime
+                Time = userTime,
+                TimeZone = timeZoneId
             };
 
             using (var db = new ClockworkContext())
@@ -81,22 +82,13 @@ namespace Clockwork.API.Controllers
 
             }
 
-            var getnamesandoffsets = new ArrayList();
-            foreach (TimeZoneInfo z in TimeZoneInfo.GetSystemTimeZones()) {
-                getnamesandoffsets.Add(new { 
-                    name = z.Id,
-                    offset = z.BaseUtcOffset
-                });
-            }
-
             var result = new
             {
                 regions = regions,
                 serverInfo = new {
                     id = TimeZoneInfo.Local.Id,
                     time = DateTime.Now
-                },
-                extra = getnamesandoffsets
+                }
             };
             return Ok(result);
         }

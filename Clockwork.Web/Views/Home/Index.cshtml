@@ -11,8 +11,7 @@
         var timeZone = getSelectedTimeZone();
         AnalogClock.init();
         var time = moment.tz(timeZone)
-        AnalogClock.draw(time);
-        $("#time-output").html(time.format("MMM DD, YYYY hh:mm:ss A"));
+        drawClockDisplay(time, timeZone)
     }
 
     function setTable() {
@@ -34,8 +33,7 @@
         urlString = "http://127.0.0.1:5000/api/currenttime/" + encodeURIComponent(timeZone);
         successFunction = function(response) {
                 var time = parseTimeFromResponse(response);
-                AnalogClock.draw(time);
-                $("#time-output").html(time.format("MMM DD, YYYY hh:mm:ss A"));
+                drawClockDisplay(time, timeZone);
                 requestPreviousRequestData();
         }
         sendGetRequest(urlString, successFunction);
@@ -48,9 +46,10 @@
                 "currentTimeQueryId": "Id",
                 "time": "Time",
                 "clientIp": "Client IP",
-                "utcTime": "UTC Time"
+                "utcTime": "UTC Time",
+                "timeZone": "Time Zone"
             };
-            TableMaker.init(JSON.parse(response).reverse(), headers, 20);
+            TableMaker.init(JSON.parse(response).reverse(), headers, 10);
             var table = TableMaker.make();
             $("#output").html(table);
         }
@@ -83,13 +82,20 @@
 
     function parseTimeFromResponse(response) {
         var time = JSON.parse(response).time;
-        var date = moment.tz(time, "America/New_York");
+        var timeZone = $("#timezone-select").val();
+        var date = moment.tz(time, timeZone);
         return date;
     }
 
     function getSelectedTimeZone() {
         var timeZone = $("#timezone-select").val();
         return timeZone;
+    }
+
+    function drawClockDisplay(time, timeZone) {
+        timeZone = timeZone.replace("_", " ");
+        AnalogClock.draw(time);
+        $("#time-output").html(time.format("ddd MMM DD, YYYY hh:mm:ss A") + " (" + timeZone + ")");
     }
     
 </script>

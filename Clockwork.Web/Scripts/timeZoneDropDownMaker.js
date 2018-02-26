@@ -12,10 +12,11 @@
 
             zones.forEach(function(zone){
                 var id = region[zone];
+                var label = id.split("/")[1].replace("_", " ");
                 if(timeZoneList.serverInfo.id === id){
-                    html += `\n        <option value="${id}" selected>${zone}</option>`;
+                    html += `\n        <option value="${id}" selected>${zone + " (" + label + ")"}</option>`;
                 } else {
-                    html += `\n        <option value="${id}">${zone}</option>`;
+                    html += `\n        <option value="${id}">${zone + " (" + label + ")"}</option>`;
                 }
             })
         })
