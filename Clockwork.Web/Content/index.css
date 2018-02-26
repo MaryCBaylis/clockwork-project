@@ -81,10 +81,6 @@ h1 {
         
 }
 
-.table-hover tbody tr:hover td {
-    background-color: #ffd100;
-}
-
 .page-request {
     cursor: pointer
 }
@@ -114,10 +110,6 @@ h1 {
     margin-top: 0px;
 }
 
-.timezone {
-
-}
-
 .timezone-label {
     background-color: #4717f6;
     color: white;
@@ -125,5 +117,9 @@ h1 {
     border-top-right-radius: 5px;
     padding: 5px;
     display: inline-block;
+}
+
+.selected {
+    background-color: #ffd100 !important;
 }
 

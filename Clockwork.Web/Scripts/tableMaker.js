@@ -58,7 +58,7 @@
         for(var i = currentRangeLow; i < currentRangeHigh + 1; i++){
             var item = dataArray[i];
             if (item) {
-                result += `        <tr scope="row" class="hover-color">`;
+                result += `        <tr scope="row" class="hover-color" data-request-id="${item.currentTimeQueryId}">`;
                 Object.keys(item).forEach(function(key){
                     var data = getFormattedItem(item, key);
                     result += `            <td>${data}</td>`;

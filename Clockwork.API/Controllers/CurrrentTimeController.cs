@@ -12,6 +12,7 @@ namespace Clockwork.API.Controllers
 
     public class CurrentTimeController : Controller
     {
+
         // GET api/currenttime/{timeZoneId}
         [Route("api/[controller]/{timeZoneId}")]
         [HttpGet]
@@ -106,6 +107,22 @@ namespace Clockwork.API.Controllers
 
             return Ok(result);
         }
+
+        //GET api/currenttime/query/{currentimequeryid}
+        [Route("api/[controller]/query/{currenttimequeryid}")]
+        [HttpGet]
+        public IActionResult GetQuery(string currentTimeQueryId)
+        {
+            CurrentTimeQuery timeQuery;
+            using (var db = new ClockworkContext())
+            {
+                timeQuery = db.CurrentTimeQueries.Find(Int32.Parse(currentTimeQueryId));
+            }
+
+            return Ok(timeQuery);
+        }
+
+
 
         private DateTime ConvertDateToTimeZone(DateTime userTime, string timeZoneId) 
         {
