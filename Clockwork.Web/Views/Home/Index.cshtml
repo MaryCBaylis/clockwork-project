@@ -3,10 +3,8 @@
 
     $("document").ready(function(){
         $("#about").tooltip({"trigger": "click"});
-        runningInterval = setInterval(setClock, 1000);
-        setClock();
         setTable();
-        getTimeZones();
+        requestTimeZones();
     })
 
     function setClock() {
@@ -58,11 +56,13 @@
         sendGetRequest(urlString, successFunction);
     }
 
-    function getTimeZones() {
+    function requestTimeZones() {
         urlString = "http://127.0.0.1:5000/api/currentTime/timezones";
         successFunction = function(response) {
             var dropDown = TZDropDownMaker.make(JSON.parse(response));
             $("#time-zone-drop-down").html(dropDown);
+            runningInterval = setInterval(setClock, 1000);
+            setClock();
         }
 
         sendGetRequest(urlString, successFunction);
