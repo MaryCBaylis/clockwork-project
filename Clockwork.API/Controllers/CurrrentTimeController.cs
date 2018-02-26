@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Clockwork.API.Models;
-using NodaTime;
-using TimeZoneNames;
 using System.Web;
 
 namespace Clockwork.API.Controllers
@@ -94,20 +92,6 @@ namespace Clockwork.API.Controllers
             return Ok(result);
         }
 
-        //GET api/currenttime/servertimezone
-        [Route("api/[controller]/servertimezone")]
-        [HttpGet]
-        public IActionResult GetServerTimeZone()
-        {
-            var result = new
-            {
-                id = TimeZoneInfo.Local.Id,
-                time = DateTime.Now
-            };
-
-            return Ok(result);
-        }
-
         //GET api/currenttime/query/{currentimequeryid}
         [Route("api/[controller]/query/{currenttimequeryid}")]
         [HttpGet]
@@ -121,8 +105,6 @@ namespace Clockwork.API.Controllers
 
             return Ok(timeQuery);
         }
-
-
 
         private DateTime ConvertDateToTimeZone(DateTime userTime, string timeZoneId) 
         {
