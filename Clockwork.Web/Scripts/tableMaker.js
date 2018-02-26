@@ -25,22 +25,25 @@
 
     function getTopBorder() {
         var numberOfRecords = dataArray.length;
-        var currentRangeLow = (currentPage - 1) * recordsPerPage + 1;
+        var currentRangeLow = Math.min(dataArray.length, (currentPage - 1) * recordsPerPage + 1);
         var currentRangeHigh = Math.min(currentPage * recordsPerPage, dataArray.length);
-        var result = `<div class="top-border">Displaying ${currentRangeLow} through ${currentRangeHigh} of ${numberOfRecords} records</div>`;
+        var result = `<div class="top-border">Displaying ${currentRangeLow} through ${currentRangeHigh} of ${numberOfRecords} record${numberOfRecords !== 1 ? "s" : ""}</div>`;
         return result;
     }
 
     function getTableHeaders(item, displayHeaders) {
-        var keys = Object.keys(item);
+        var result = "";
+        if (item){
+            var keys = Object.keys(item);
 
-        var result = `<div class="table-responsive">\n    <table class="table table-striped table-hover">\n        <tr>`;
+            result = `<div class="table-responsive">\n    <table class="table table-striped table-hover">\n        <tr>`;
 
-        keys.forEach(function(header){
-            result += `\n            <th scope="col">${displayHeaders[header]}</th>`
-        })
+            keys.forEach(function(header){
+                result += `\n            <th scope="col">${displayHeaders[header]}</th>`
+            })
 
-        result += `\n        </tr>`
+            result += `\n        </tr>`
+        }
 
         return result;
     }
@@ -66,7 +69,6 @@
                 result += `        </tr>`;
             }
         }
-
         return result;
     }
 
@@ -80,7 +82,7 @@
             result += `<span class="page-request ${1 === currentPage ? 
             "current-page" : ""}" data-page-request="1">1</span>`;
             if (numberOfPages < 6){
-                for (var i = 2; i < numberOfPages; i++) {
+                for (var i = 2; i < numberOfPages + 1; i++) {
                     result += `&nbsp&nbsp<span class="page-request ${i === 
                     currentPage ? "current-page" : ""}" 
                     data-page-request="${i}">${i}</span>`;
