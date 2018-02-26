@@ -5,26 +5,29 @@ using Microsoft.AspNetCore.Mvc;
 using Clockwork.API.Models;
 using NodaTime;
 using TimeZoneNames;
+using System.Web;
 
 namespace Clockwork.API.Controllers
 {
 
     public class CurrentTimeController : Controller
     {
-        // GET api/currenttime
-        [Route("api/[controller]")]
+        // GET api/currenttime/{timeZoneId}
+        [Route("api/[controller]/{timeZoneId}")]
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Get(string timeZoneId)
         {
+            timeZoneId = HttpUtility.UrlDecode(timeZoneId);
+
             var utcTime = DateTime.UtcNow;
-            var serverTime = DateTime.Now;
+            var userTime = ConvertDateToTimeZone(utcTime, timeZoneId);
             var ip = this.HttpContext.Connection.RemoteIpAddress.ToString();
 
             var returnVal = new CurrentTimeQuery
             {
                 UTCTime = utcTime,
                 ClientIp = ip,
-                Time = serverTime
+                Time = userTime
             };
 
             using (var db = new ClockworkContext())
@@ -110,6 +113,14 @@ namespace Clockwork.API.Controllers
             };
 
             return Ok(result);
+        }
+
+        private DateTime ConvertDateToTimeZone(DateTime userTime, string timeZoneId) 
+        {
+            TimeZoneInfo timeInfo = TimeZoneInfo.FindSystemTimeZoneById(timeZoneId);
+            DateTime result = TimeZoneInfo.ConvertTimeFromUtc(userTime, timeInfo);
+
+            return result;
         }
     }
 }

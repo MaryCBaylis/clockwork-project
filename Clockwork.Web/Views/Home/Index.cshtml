@@ -8,7 +8,7 @@
     })
 
     function setClock() {
-        var timeZone = $("#timezone-select").val();
+        var timeZone = getSelectedTimeZone();
         AnalogClock.init();
         var time = moment.tz(timeZone)
         AnalogClock.draw(time);
@@ -30,7 +30,8 @@
     }
 
     function requestCurrentTime(){
-        urlString = "http://127.0.0.1:5000/api/currenttime";
+        var timeZone = getSelectedTimeZone();
+        urlString = "http://127.0.0.1:5000/api/currenttime/" + encodeURIComponent(timeZone);
         successFunction = function(response) {
                 var time = parseTimeFromResponse(response);
                 AnalogClock.draw(time);
@@ -84,6 +85,11 @@
         var time = JSON.parse(response).time;
         var date = moment.tz(time, "America/New_York");
         return date;
+    }
+
+    function getSelectedTimeZone() {
+        var timeZone = $("#timezone-select").val();
+        return timeZone;
     }
     
 </script>
