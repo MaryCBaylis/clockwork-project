@@ -2,7 +2,7 @@
     var runningInterval;
 
     $("document").ready(function(){
-        $("#about").tooltip({"trigger": "click"});
+        $("#about").tooltip({});
     
         $("body").on("click", "tr", function(){
             $(".selected").removeClass("selected");
@@ -130,8 +130,8 @@
         <h1>AWH 
             <span class="secondary-header">Clockwork Project</span>
         </h1>
-        <span id="about" data-toggle="tooltip" data-placement="bottom" 
-            title="Version @ViewData["Version"] on @ViewData["Runtime"]!">
+        <span id="about" data-toggle="tooltip" data-placement="right" 
+            title="Version @ViewData["Version"] on @ViewData["Runtime"]! Author: Mary C Baylis">
   <i class="fas fa-question-circle tertiary-header"></i></span> 
     </div>
     <div class="spaceholder col-lg-2 col-md-1">
