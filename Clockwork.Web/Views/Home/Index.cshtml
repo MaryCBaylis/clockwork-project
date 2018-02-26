@@ -10,10 +10,9 @@
             clearInterval(runningInterval);
             requestPreviousQuery($(this).data("requestId"));
         })
-    requestTimeZones();
+
+        requestTimeZones();
         setTable();
-    
-        
     })
 
     function setClock() {
@@ -120,7 +119,7 @@
     function drawClockDisplay(time, timeZone) {
         timeZone = timeZone.replace("_", " ");
         AnalogClock.draw(time);
-        $("#time-output").html(time.format("ddd MMM DD, YYYY hh:mm:ss A") + " (" + timeZone + ")");
+        $("#time-output").html(time.format("ddd MMM DD, YYYY h:mm:ss A") + " (" + timeZone + ")");
     }
     
 </script>

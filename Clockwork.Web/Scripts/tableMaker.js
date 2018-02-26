@@ -127,11 +127,13 @@
     function getDisplayDate(date) {
         var seconds = fillSingleDigitSpace(date.getSeconds());
         var minutes = fillSingleDigitSpace(date.getMinutes());
+        var hours = date.getHours() % 12 || 12;
+        var meridian = date.getHours() < 12 ? "AM" : "PM";
         var result = 
             date.toDateString() + " " +
-            date.getHours() + ":" +
+            hours + ":" +
             minutes + ":" +
-            seconds;
+            seconds + " " + meridian;
 
         return result;
     }
